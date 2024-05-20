@@ -1,2 +1,4 @@
 # shuffle.ai
-Developing an AI to choose fitting songs to a request
+## general idea
+Developing an AI to choose songs depending on a user request.
+
