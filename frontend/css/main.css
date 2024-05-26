@@ -1,0 +1,17 @@
+.nav-section{
+    width: 100vw;
+    height: 10vh;
+    background-color: red;
+}
+
+.playlist-section{
+    width: 100vw;
+    height: 70vh;
+    background-color: blue;
+}
+
+.suggestions-section{
+    width: 100vw;
+    height: 20vh;
+    background-color: green;
+}
