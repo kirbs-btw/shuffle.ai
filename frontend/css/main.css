@@ -2,16 +2,44 @@
     width: 100vw;
     height: 10vh;
     background-color: red;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.search-bar{
+    width: 80%;
+    height: 70%;
+    background-color: blue; 
+}
+
 
 .playlist-section{
     width: 100vw;
     height: 70vh;
     background-color: blue;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.playlist-container{
+    width: 80%;
+    height: 90%;
+    background-color: aqua;
 }
 
 .suggestions-section{
     width: 100vw;
     height: 20vh;
     background-color: green;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.suggestion-container{
+    width: 80%;
+    height: 90%;
+    background-color: rgb(174, 255, 111);
 }
