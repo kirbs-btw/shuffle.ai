@@ -1,6 +1,7 @@
 import time
 
 import numpy as np
+
 from pymilvus import (
     connections,
     utility,
@@ -10,13 +11,13 @@ from pymilvus import (
     Collection,
 )
 
-from PyPDF2 import PdfReader   # or any other PDF processing library
-from sentence_transformers import SentenceTransformer 
+#from PyPDF2 import PdfReader   # or any other PDF processing library
+#from sentence_transformers import SentenceTransformer 
 
 fmt = "\n=== {:30} ===\n"
 
 def setup_collection_structure():
-    version_name = "name-collection"
+    version_name = "song-collection"
 
     
     dim = 768
@@ -27,13 +28,15 @@ def setup_collection_structure():
     fields = [
         # FieldSchema(name="pk", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=500),
         FieldSchema(name="id", dtype=DataType.INT64, is_primary=True, auto_id=True),
-        FieldSchema(name="content", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=2048),
-        FieldSchema(name="pagelabel", dtype=DataType.INT64, is_primary=False, auto_id=False),
+        FieldSchema(name="description", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=2048),
+        FieldSchema(name="title", dtype=DataType.VARCHAR, is_primary=False, auto_id=False),
         FieldSchema(name="embeddings", dtype=DataType.FLOAT_VECTOR, dim=dim)
     ]
 
-    schema = CollectionSchema(fields, "hello_milvus is the simplest demo to introduce the APIs")
+    schema = CollectionSchema(fields, description="a collection for testing with songs")
 
+    print(f"---your schema---")
+    print(schema)
     print(f"---Create collection {version_name}---")
     collection_milvus = Collection(version_name, schema, consistency_level="Strong")
     
@@ -103,10 +106,10 @@ def test_index(collection_milvus):
 
 
 def main():
-    pdf_path = "my data.pdf"
+
     collection_milvus = setup_collection_structure()
-    ingest_data_to_milvus(collection_milvus, pdf_path)
-    test_index(collection_milvus)
+    #ingest_data_to_milvus(collection_milvus, pdf_path)
+    #test_index(collection_milvus)
     
 if __name__ == '__main__':
     main()
