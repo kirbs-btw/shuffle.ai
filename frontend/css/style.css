@@ -3,3 +3,9 @@ body{
     padding: 0;
 }
 
+:root{
+    --dark-base: #222831;
+    --mid-base: #31363F;
+    --secondary-color: #76ABAE;
+    --white-color: #EEEEEE;
+}
