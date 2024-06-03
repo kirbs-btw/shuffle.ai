@@ -57,13 +57,26 @@
     margin-top: 1vh;
     background-color: var(--dark-base);
     display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .song-container > *{
     margin-left: 2vh;
+    margin-right: 2vh;
     color: var(--white-color);
     font-family: Gotham Htf;
+    display:flex;
 }
+
+.middle-song-section{
+    color: var(--mid-base);
+}
+
+.end-song-section{
+    color: var(--secondary-color);
+}
+
 
 .suggestions-section{
     width: 100vw;
