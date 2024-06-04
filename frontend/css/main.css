@@ -61,16 +61,40 @@
     justify-content: space-between;
 }
 
-.song-container > *{
+.song-container > div > *{
     margin-left: 2vh;
     margin-right: 2vh;
-    color: var(--white-color);
     font-family: Gotham Htf;
     display:flex;
 }
 
+.song-container > div{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.start-song-div{
+    height: 100%;
+    width: 20%;
+}
+
+.middle-song-div{
+    height: 100%;
+    width: 75%;
+}
+
+.end-song-div{
+    height: 100%;
+    width: 5%;
+}
+
+.start-song-section{
+    color: var(--white-color);
+}
+
 .middle-song-section{
-    color: var(--mid-base);
+    color: var(--white-color);
 }
 
 .end-song-section{
