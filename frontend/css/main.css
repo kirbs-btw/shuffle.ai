@@ -39,6 +39,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+}
+
+#playlist_title{
+    color: var(--white-color);
+    font-family: Gotham htf;
 }
 
 .playlist-container{
@@ -98,6 +104,7 @@
 }
 
 .end-song-section{
+    font-size: 200%;
     color: var(--secondary-color);
 }
 
@@ -115,6 +122,10 @@
     width: 80%;
     height: 90%;
     background-color: var(--mid-base);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    flex-direction: column;
 }
 
 /*
