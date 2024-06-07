@@ -128,7 +128,18 @@
     align-items: center;
     justify-content: flex-start;
     flex-direction: column;
+    overflow-y: auto;
 }
+
+.add-song-button{
+    background-color: #ffffff00;
+    border: none;
+}
+
+.add-song-button:hover{
+    color: var(--hover-secondary-color);
+}
+
 
 /*
 border-radius
