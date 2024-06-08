@@ -19,6 +19,19 @@ app.get('/ping', (req, res) => {
 
 });
 
+// on change of the website playlist
+app.post('/suggestion', (req, res) =>{
+  // getting the songs
+
+  // converting the songs in the playlist to v
+
+  // searching for a fitting one in the db with magic i wont tell
+
+  // responding with the fitting songs
+
+
+
+});
 
 app.post('/data', (req, res) => {
   // the response of the server is still not reachable 
