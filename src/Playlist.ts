@@ -1,17 +1,27 @@
+import Song from 'Song';
+
 class Playlist{
-   private songs: string[];
-   private dir: float[]; // to be changed 
+    private songs: Song[];
 
 
 
-  function calcDir(): float[]{}
-  function addSong(song: Song){
 
+    public addSong(song: Song){
+        this.songs.add();
+    }
 
-  }
+    public removeSong(song: Song){
+        // remove song
+    }
 
-  function delSong(id: string){
-    
-  }
+    // coding up a playlist class
+    // to handle the function
 
+    // saving the songs
+
+    // vector a
+
+    // add method
+
+    // delete method
 }
