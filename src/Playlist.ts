@@ -1,21 +1,20 @@
-import Song from 'Song';
+import {Song} from '../src/Song.js';
 
 class Playlist{
     private songs: Song[];
-
-
-
+    private magic: number;
 
     public addSong(song: Song){
-        this.songs.add();
+        this.songs.push(song);
     }
 
     public removeSong(song: Song){
-        // remove song
+        // remove song from Songs
     }
 
-    // coding up a playlist class
-    // to handle the function
+    public getMagic(): number{
+        return this.magic;
+    }
 
     // saving the songs
 
