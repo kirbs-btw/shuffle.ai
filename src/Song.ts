@@ -1,4 +1,5 @@
-class Song{
+
+export class Song{
     private name: string;
     private artist: string;
     private duration: number;
