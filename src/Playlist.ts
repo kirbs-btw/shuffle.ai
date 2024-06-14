@@ -9,18 +9,13 @@ class Playlist{
     }
 
     public removeSong(song: Song){
-        // remove song from Songs
+         this.songs = this.songs.filter(item => item != song);
     }
-
     public getMagic(): number{
         return this.magic;
     }
 
     // saving the songs
 
-    // vector a
-
-    // add method
-
-    // delete method
+    // load playlist 
 }
