@@ -1,5 +1,6 @@
 import {Song} from '../src/Song.js';
 
+        
 class Playlist{
     private songs: Song[];
     private magic: number;
