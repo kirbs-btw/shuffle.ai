@@ -11,14 +11,6 @@ app.get('/', (req, res) => {
   res.send('Hello, world!');
 });
 
-app.get('/ping', (req, res) => {
-  // i can only return one response to the client
-  // but i can execute code after the return
-  res.send("fff");
-  console.log("hallo das ist cool!");
-
-});
-
 // on change of the website playlist
 app.post('/suggestion', (req, res) =>{
   // getting the songs
@@ -28,8 +20,6 @@ app.post('/suggestion', (req, res) =>{
   // searching for a fitting one in the db with magic i wont tell
 
   // responding with the fitting songs
-
-
 
 });
 
@@ -42,6 +32,7 @@ app.post('/data', (req, res) => {
   // res.send(`You sent: ${JSON.stringify(data)}`);
 });
 
+// opens the port of the api
 app.listen(port, () => {
   console.log(`Server is running at http://localhost:${port}`);
 });
