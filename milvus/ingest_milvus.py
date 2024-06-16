@@ -1,6 +1,7 @@
 import time
 
 import numpy as np
+
 from pymilvus import (
     connections,
     utility,
@@ -10,16 +11,16 @@ from pymilvus import (
     Collection,
 )
 
-from PyPDF2 import PdfReader   # or any other PDF processing library
+#from PyPDF2 import PdfReader   # or any other PDF processing library
 from sentence_transformers import SentenceTransformer 
 
 fmt = "\n=== {:30} ===\n"
+collection_name = "song_collection"
 
 def setup_collection_structure():
-    version_name = "test-name"
-
+    version_name = collection_name
     
-    dim = 768
+    dim = 384
 
     print("---start connecting to Milvus---")
     connections.connect("default", host="localhost", port="19530")
@@ -27,42 +28,34 @@ def setup_collection_structure():
     fields = [
         # FieldSchema(name="pk", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=500),
         FieldSchema(name="id", dtype=DataType.INT64, is_primary=True, auto_id=True),
-        FieldSchema(name="content", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=2048),
-        FieldSchema(name="pagelabel", dtype=DataType.INT64, is_primary=False, auto_id=False),
+        FieldSchema(name="description", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=2048),
+        FieldSchema(name="title", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=2048),
         FieldSchema(name="embeddings", dtype=DataType.FLOAT_VECTOR, dim=dim)
     ]
 
-    schema = CollectionSchema(fields, "hello_milvus is the simplest demo to introduce the APIs")
+    schema = CollectionSchema(fields, description="a collection for testing with songs")
+
+    print(f"---created schema---")
 
     print(f"---Create collection {version_name}---")
     collection_milvus = Collection(version_name, schema, consistency_level="Strong")
     
     return collection_milvus
     
-def process_pdf(pdf_path):
-    with open(pdf_path, 'rb') as file:
-        reader = PdfReader(file)
-        text_arr = []
-        page_numbers = []
-        for page_num in range(len(reader.pages)):
-            page_numbers.append(page_num+1)
-            page_text = reader.pages[page_num].extract_text()
-            text_arr.append(page_text)
-                
-        return text_arr, page_numbers
-
-def ingest_data_to_milvus(collection_milvus,pdf_path):
-    # Sample usage:
-    pdf_text_arr, page_num_arr = process_pdf(pdf_path)
-
+def ingest_data_to_milvus(collection_milvus, data):
+    labels = [i[0] for i in data]
+    descriptions = [i[1] for i in data]
+    
     # Convert text to embeddings
-    model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+    # model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+    model = SentenceTransformer('all-MiniLM-L6-v2')
 
-    embeddings_text = model.encode(pdf_text_arr)
+    # to be inserted the array of descriptions
+    embeddings_text = model.encode(descriptions)
 
     entities = [
-        pdf_text_arr,
-        page_num_arr, 
+        descriptions, 
+        labels,
         embeddings_text,
     ]
 
@@ -79,13 +72,18 @@ def ingest_data_to_milvus(collection_milvus,pdf_path):
 
     collection_milvus.create_index("embeddings", index)
 
-def test_index(collection_milvus):
+    print("---ingested data---")
+    
+def test_index(collection_milvus, search_query="love"):
+    print("---testing collection search---")
     print("---loading in collection---")
     collection_milvus.load()
     # asking milvus
-
-    question = "What is the Error Number 40300?"
-    question_embedding = model.encode([question])
+    
+    # model = SentenceTransformer('distilbert-base-nli-mean-tokens')
+    model = SentenceTransformer('all-MiniLM-L6-v2')
+    
+    question_embedding = model.encode([search_query])
 
     print("---Start searching based on vector similarity---")
 
@@ -94,20 +92,76 @@ def test_index(collection_milvus):
         "params": {"nprobe": 10},
     }
 
-    result = collection_milvus.search(question_embedding, "embeddings", search_params, limit=3, output_fields=["content"])
+    result = collection_milvus.search(question_embedding, "embeddings", search_params, limit=3, output_fields=["title"])
 
     for hits in result:
         for hit in hits:
-            print(f"hit: {hit}, random field: {hit.entity.get('content')}")
+            print(f"hit: {hit}, title: {hit.entity.get('title')}, description: {hit.entity.get('description')}")
             print("------------")
 
-
-def main():
-    pdf_path = "TRUMPF_Manual_TruConvert_DC_1030.pdf"
-    collection_milvus = setup_collection_structure()
-    ingest_data_to_milvus(collection_milvus, pdf_path)
-    test_index(collection_milvus)
+def clearMilvus():
+    connections.connect("default", host="localhost", port="19530")
     
+    # Check if the collection exists
+    if utility.has_collection(collection_name):
+        # Drop the collection
+        utility.drop_collection(collection_name)
+        print(f"Collection '{collection_name}' has been deleted.")
+    else:
+        print(f"Collection '{collection_name}' does not exist.")
+def main():
+    clearMilvus()
+    
+    # my data : "name", "description"
+    data = [
+        ["Perfect", "Love"],
+        ["Yung Gravy", "Pop"],
+        ["Kleine Nacht Musik", "Classic"],
+        ["Blinding Lights", "Pop"],
+        ["Symphony No. 5", "Classical"],
+        ["Bohemian Rhapsody", "Rock"],
+        ["Shape of You", "Pop"],
+        ["Für Elise", "Classical"],
+        ["Rolling in the Deep", "Soul"],
+        ["Smells Like Teen Spirit", "Rock"],
+        ["Despacito", "Reggaeton"],
+        ["Yesterday", "Pop"],
+        ["Canon in D", "Classical"],
+        ["Thriller", "Pop"],
+        ["Imagine", "Rock"],
+        ["Hotel California", "Rock"],
+        ["Moonlight Sonata", "Classical"],
+        ["Havana", "Pop"],
+        ["Bad Guy", "Pop"],
+        ["Vivaldi's Four Seasons", "Classical"],
+        ["Hey Jude", "Rock"],
+        ["Uptown Funk", "Funk"],
+        ["Stairway to Heaven", "Rock"],
+        ["Old Town Road", "Country Rap"],
+        ["Take On Me", "Synthpop"],
+        ["Clair de Lune", "Classical"],
+        ["Radioactive", "Alternative Rock"],
+        ["Boogie Wonderland", "Disco"],
+        ["The Sound of Silence", "Folk Rock"],
+        ["Respect", "Soul"]
+    ]
+    
+
+    collection_milvus = setup_collection_structure()
+    ingest_data_to_milvus(collection_milvus, data)
+    test_index(collection_milvus, search_query="classic")
+    
+    clearMilvus()
+
+# after some testing 
+# the search feels like crap
+# i search "classic" it finds the "classic" but the second entry it about "love" and the third is "classical"
+# i think the modle is not greate
+
+# some issue with the model 
+# --> distance to small
+
+
 if __name__ == '__main__':
     main()
     
