@@ -4,6 +4,6 @@ import { Song } from "./Song.js";
 // one change
 function search(userinput: string): Song[]{
     // searching database as a stream
-
-    return null;
+    let result = db.filter(item => item.includes(userinput));
+    return result;
 }   
