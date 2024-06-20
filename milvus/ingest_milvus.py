@@ -48,7 +48,7 @@ def ingest_data_to_milvus(collection_milvus, data):
     
     # Convert text to embeddings
     # model = SentenceTransformer('distilbert-base-nli-mean-tokens')
-    model = SentenceTransformer('all-MiniLM-L6-v2')
+    model = SentenceTransformer('bert-base-uncased')
 
     # to be inserted the array of descriptions
     embeddings_text = model.encode(descriptions)
@@ -81,7 +81,7 @@ def test_index(collection_milvus, search_query="love"):
     # asking milvus
     
     # model = SentenceTransformer('distilbert-base-nli-mean-tokens')
-    model = SentenceTransformer('all-MiniLM-L6-v2')
+    model = SentenceTransformer('bert-base-uncased')
     
     question_embedding = model.encode([search_query])
 
@@ -135,15 +135,6 @@ def main():
         ["Bad Guy", "Pop"],
         ["Vivaldi's Four Seasons", "Classical"],
         ["Hey Jude", "Rock"],
-        ["Uptown Funk", "Funk"],
-        ["Stairway to Heaven", "Rock"],
-        ["Old Town Road", "Country Rap"],
-        ["Take On Me", "Synthpop"],
-        ["Clair de Lune", "Classical"],
-        ["Radioactive", "Alternative Rock"],
-        ["Boogie Wonderland", "Disco"],
-        ["The Sound of Silence", "Folk Rock"],
-        ["Respect", "Soul"]
     ]
     
 
