@@ -17,19 +17,17 @@
 }
 
 #search-input{
-    width: 97.5%;
+    width: 98.5%;
     margin-left: 0.75%;
     height: 75%;
     background-color: var(--dark-base);
+    color: var(--white-color);
     border: none;
 }
 
-#search-button{
-    background-color: var(--secondary-color);
-    margin-left: 0.75%;
-    height: 75%;
-    width: 4%;
+#search-input:focus {
     border: none;
+    outline: none;
 }
 
 .playlist-section{
