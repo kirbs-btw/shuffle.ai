@@ -6,12 +6,17 @@ export class Song{
     private link: string;
     private vector: number[];
 
+    private id: number;
+    private static classCount: number;
+    
+
     constructor(name:string, artist:string, duration:number, link:string){
         this.name = name;
         this.artist = artist;
         this.duration = duration;
         this.link = link; // on our site or just web idk
-
+        this.id = Song.classCount;
+        Song.classCount++;
         this.initVector();
     }
 
