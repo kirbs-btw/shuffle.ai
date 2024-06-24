@@ -1,10 +1,17 @@
 import { Song } from "./Song.js";
 
 class Search{
+    private static instance: Search;
+
     private db: Song[];
     
-    constructor(){
-        this.db = this.get_db();
+    private constructor(){
+        // this.db = this.get_db();
+    }
+
+    public getInstance(): Search{
+        if (Search.instance == null){Search.instance=new Search()}
+        return Search.instance;
     }
 
     public get_db(): Song[]{
