@@ -28,8 +28,11 @@ def setup_collection_structure():
     fields = [
         # FieldSchema(name="pk", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=500),
         FieldSchema(name="id", dtype=DataType.INT64, is_primary=True, auto_id=True),
-        FieldSchema(name="description", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=2048),
         FieldSchema(name="title", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=2048),
+        FieldSchema(name="artist", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=2048),
+        FieldSchema(name="text_data", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=2048),
+        FieldSchema(name="duration", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=2048),
+        FieldSchema(name="link", dtype=DataType.VARCHAR, is_primary=False, auto_id=False, max_length=2048),
         FieldSchema(name="embeddings", dtype=DataType.FLOAT_VECTOR, dim=dim)
     ]
 
@@ -48,7 +51,7 @@ def ingest_data_to_milvus(collection_milvus, data):
     
     # Convert text to embeddings
     # model = SentenceTransformer('distilbert-base-nli-mean-tokens')
-    model = SentenceTransformer('bert-base-uncased')
+    model = SentenceTransformer('all-MiniLM-L6-v2')
 
     # to be inserted the array of descriptions
     embeddings_text = model.encode(descriptions)
@@ -81,7 +84,7 @@ def test_index(collection_milvus, search_query="love"):
     # asking milvus
     
     # model = SentenceTransformer('distilbert-base-nli-mean-tokens')
-    model = SentenceTransformer('bert-base-uncased')
+    model = SentenceTransformer('all-MiniLM-L6-v2')
     
     question_embedding = model.encode([search_query])
 
@@ -109,6 +112,7 @@ def clearMilvus():
         print(f"Collection '{collection_name}' has been deleted.")
     else:
         print(f"Collection '{collection_name}' does not exist.")
+
 def main():
     clearMilvus()
     
@@ -127,14 +131,6 @@ def main():
         ["Despacito", "Reggaeton"],
         ["Yesterday", "Pop"],
         ["Canon in D", "Classical"],
-        ["Thriller", "Pop"],
-        ["Imagine", "Rock"],
-        ["Hotel California", "Rock"],
-        ["Moonlight Sonata", "Classical"],
-        ["Havana", "Pop"],
-        ["Bad Guy", "Pop"],
-        ["Vivaldi's Four Seasons", "Classical"],
-        ["Hey Jude", "Rock"],
     ]
     
 
@@ -156,3 +152,6 @@ def main():
 if __name__ == '__main__':
     main()
     
+# miluvs will be the song db in the background
+# the vector will somehow save the "vibe" of the song
+# title song search is going to be over a relational db or a normal pattern search in the vector db
