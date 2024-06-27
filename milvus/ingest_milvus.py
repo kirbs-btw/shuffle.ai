@@ -48,6 +48,10 @@ def setup_collection_structure():
 def ingest_data_to_milvus(collection_milvus, data):
     labels = [i[0] for i in data]
     descriptions = [i[1] for i in data]
+    artist = [i[2] for i in data]
+    duration = [i[3] for i in data]
+
+
     
     # Convert text to embeddings
     # model = SentenceTransformer('distilbert-base-nli-mean-tokens')
@@ -59,6 +63,8 @@ def ingest_data_to_milvus(collection_milvus, data):
     entities = [
         descriptions, 
         labels,
+        artist,
+        duration
         embeddings_text,
     ]
 
@@ -118,19 +124,9 @@ def main():
     
     # my data : "name", "description"
     data = [
-        ["Perfect", "Love"],
-        ["Yung Gravy", "Pop"],
-        ["Kleine Nacht Musik", "Classic"],
-        ["Blinding Lights", "Pop"],
-        ["Symphony No. 5", "Classical"],
-        ["Bohemian Rhapsody", "Rock"],
-        ["Shape of You", "Pop"],
-        ["Für Elise", "Classical"],
-        ["Rolling in the Deep", "Soul"],
-        ["Smells Like Teen Spirit", "Rock"],
-        ["Despacito", "Reggaeton"],
-        ["Yesterday", "Pop"],
-        ["Canon in D", "Classical"],
+        ["Perfect", "Love", "Ed Sheeran", 3.15, "link"],
+        ["c'est la vie", "Pop", "Young Gravy", 2.50, "link"],
+        ["Kleine Nacht Musik", "Classic", "Mozart", 5.20, "link"],
     ]
     
 
