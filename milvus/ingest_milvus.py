@@ -50,6 +50,7 @@ def ingest_data_to_milvus(collection_milvus, data):
     descriptions = [i[1] for i in data]
     artist = [i[2] for i in data]
     duration = [i[3] for i in data]
+    link = [i[4] for i in data] 
 
 
     
@@ -64,7 +65,8 @@ def ingest_data_to_milvus(collection_milvus, data):
         descriptions, 
         labels,
         artist,
-        duration
+        duration,
+        link,
         embeddings_text,
     ]
 
