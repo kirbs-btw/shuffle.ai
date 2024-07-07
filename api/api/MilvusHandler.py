@@ -16,11 +16,13 @@ class MilvusHandler:
                  dim=384, 
                  connection_type:str = "default", 
                  host:str="localhost", 
-                 port:str="19530"):
+                 port:str="19530", 
+                 embedding_model="intfloat/multilingual-e5-large"):
         
         self.collection_name:str = collectionName
         self.dim:int = dim
         self.index_name:str = indexName
+        self.embedding_model = embedding_model
         
         self.__connect_to_db(connection_type=connection_type, host=host, port=port)
         
@@ -61,7 +63,7 @@ class MilvusHandler:
         id_arr: list = [data_point[0] for data_point in data]
         description_arr: list = [data_point[1] for data_point in data]
         
-        model: SentenceTransformer = SentenceTransformer('all-MiniLM-L6-v2')    
+        model: SentenceTransformer = SentenceTransformer(self.embedding_model)    
 
         description_embedding: list = model.encode(description_arr)
         
@@ -80,3 +82,15 @@ class MilvusHandler:
             "params": {"nlist": 128},
         }
         collection_milvus.create_index(self.index_name, index)
+
+    def search_embedding(self, embedding) -> list:
+        collection_milvus: Collection = Collection(name=self.collection_name) 
+        collection_milvus.load()
+
+        search_params = {
+        "metric_type": "L2",
+        "params": {"nprobe": 10},
+        }
+
+        # results
+        return collection_milvus.search(embedding, "embeddings", search_params, limit=3, output_fields=["id"])
