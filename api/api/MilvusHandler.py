@@ -1,6 +1,7 @@
 import numpy as np
 from pymilvus import (
     connections,
+    utility,
     FieldSchema, 
     CollectionSchema, 
     DataType,
@@ -23,7 +24,12 @@ class MilvusHandler:
         self.dim:int = dim
         self.index_name:str = indexName
         self.embedding_model = embedding_model
-        
+        self.connection_type:str = connection_type
+        self.host:str = host
+        self.port:str = port
+
+
+
         self.__connect_to_db(connection_type=connection_type, host=host, port=port)
         
     def __connect_to_db(self, connection_type:str = "default", host:str="localhost", port:str="19530") -> None:
@@ -88,9 +94,19 @@ class MilvusHandler:
         collection_milvus.load()
 
         search_params = {
-        "metric_type": "L2",
-        "params": {"nprobe": 10},
+            "metric_type": "L2",
+            "params": {"nprobe": 10},
         }
 
         # results
         return collection_milvus.search(embedding, "embeddings", search_params, limit=3, output_fields=["id"])
+    
+    def clear_collection(self) -> None:
+        self.__connect_to_db(connection_type= self.connection_type, host=self.host, port=self.port)
+            # Check if the collection exists
+        if utility.has_collection(self.collection_name):
+            # Drop the collection
+            utility.drop_collection(self.collection_name)
+            print(f"Collection '{self.collection_name}' has been deleted.")
+        else:
+            print(f"Collection '{self.collection_name}' does not exist.")
