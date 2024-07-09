@@ -12,6 +12,30 @@ def ping():
         "message" : "active"
     }
 
+@api.post('/search/word')
+def search_word():
+    # correct open api comming 
+    """
+    request
+    {
+        "search_phrase" : int,
+        "user": string, ?
+    }
+
+    response
+    {
+        results: {
+            type: array,
+            [
+                {
+                    id,
+                    score
+                }
+            ]
+        }
+    }
+    """
+    pass
 
 @api.post('/search/playlist')
 def search_playlist():
