@@ -42,8 +42,21 @@ def search_playlist():
     """
     takes playlist and returns list of songs
     - openapi spec comming...
+    playlist has form 
+    {
+        "playlist": [
+            {"id": 42},
+            {"id": 13},
+        ]
+    }
     """
-    pass    
+
+    data = request.json()
+    playlist_list = data['playlist']
+
+
+    milvusHandler = milvusHandler()
+    milvusHandler.searchPlaylist(playlist_list)    
     
     
 # testing 
