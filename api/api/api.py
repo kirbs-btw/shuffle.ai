@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask import request
 from flask import jsonify
+from MilvusHandler import *
 
 api = Blueprint('api', __name__)
 
@@ -55,7 +56,7 @@ def search_playlist():
     playlist_list = data['playlist']
 
 
-    milvusHandler = milvusHandler()
+    milvusHandler = MilvusHandler()
     milvusHandler.searchPlaylist(playlist_list)    
     
     
