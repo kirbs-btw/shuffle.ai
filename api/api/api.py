@@ -1,6 +1,5 @@
 from flask import Blueprint
 from flask import request
-from flask import jsonify
 from MilvusHandler import *
 
 api = Blueprint('api', __name__)
@@ -16,26 +15,7 @@ def ping():
 @api.post('/search/word')
 def search_word():
     # correct open api comming 
-    """
-    request
-    {
-        "search_phrase" : int,
-        "user": string, ?
-    }
-
-    response
-    {
-        results: {
-            type: array,
-            [
-                {
-                    id,
-                    score
-                }
-            ]
-        }
-    }
-    """
+    # don't know if in need ?
     pass
 
 @api.post('/search/playlist')
@@ -45,7 +25,7 @@ def search_playlist():
     - openapi spec comming...
     playlist has form 
     {
-        "playlist": [
+        "song_ids": [
             {"id": 42},
             {"id": 13},
         ]
@@ -53,22 +33,19 @@ def search_playlist():
     """
 
     data = request.json()
-    playlist_list = data['playlist']
+    playlist_list = data['song_ids']
 
+    # still need a way to sort out the songs that are already in the playlist
 
     milvusHandler = MilvusHandler()
-    milvusHandler.searchPlaylist(playlist_list)    
-    
-    
-# testing 
-@api.post('/api/app')
-def app():
+    results = milvusHandler.searchPlaylist(playlist_list)    
 
-    data = request.get_json() 
-    return {
-        "code" : 200,
-        "type" : "success",
-        "message" : "worked with the data",
-        "data" : data
+    # build response
+    response = {
+        "song_ids": []
     }
+    for hits in results:
+        for hit in hits:
+            response["song_ids"].append(hit["id"])
+    return response
     
