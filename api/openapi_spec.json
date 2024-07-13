@@ -17,7 +17,7 @@
               "application/json": {
                 "schema": {
                   "type": "array",
-                  "items": {
+                  "song_ids": {
                     "type": "integer"
                   }
                 }
@@ -31,7 +31,7 @@
                 "application/json": {
                   "schema": {
                     "type": "array",
-                    "items": {
+                    "song_ids": {
                       "type": "integer"
                     }
                   }
