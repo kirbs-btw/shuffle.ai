@@ -49,6 +49,8 @@ class MilvusHandler:
     def search_playlist(self, playlist:list) -> list:
         # playlist=["id", "id", "id"]
 
+        print(playlist)
+
         self.__connect_to_db()
         collection_milvus: Collection = Collection(name=self.collection_name) 
         # to do

@@ -1,6 +1,7 @@
 from flask import Blueprint
 from flask import request
-from MilvusHandler import *
+from .MilvusHandler import MilvusHandler
+import json
 
 api = Blueprint('api', __name__)
 
@@ -18,6 +19,9 @@ def search_word():
     # don't know if in need ?
     pass
 
+# curl -X POST -H "Content-Type: application/json" -d '{ "song_ids": [ {"id": "42"}, {"id": "13"}]}' http://127.0.0.1:5000/search/playlist
+
+
 @api.post('/search/playlist')
 def search_playlist():
     """
@@ -31,12 +35,20 @@ def search_playlist():
         ]
     }
     """
+    print("search_playlist")
+    print("data")
 
-    data = request.json()
+    # request.get_data() works to get a string
+    # json.loads does not like me...
+ 
+    data = json.loads(request.get_data())
+
+    print(data)
     playlist_list = data['song_ids']
 
     # still need a way to sort out the songs that are already in the playlist
-
+    
+    # handle if the song is not in the db
     milvusHandler = MilvusHandler()
     results = milvusHandler.searchPlaylist(playlist_list)    
 
