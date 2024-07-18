@@ -1,3 +1,5 @@
 myenv
 prompt_testing
 milvus_compose
+vector_db_api/api/__pycache__
+relational_db_api/api/__pycache__
