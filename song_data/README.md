@@ -1,7 +1,10 @@
-# song preprocessing 
-## base data 
-There is a dataset form Kaggle with the top 30.000 songs on Spotify 
-i take 5-10k of them and do some webscraping to extend the columns. 
+# Song preprocessing 
+## Base data 
+Here the [dataset](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs) from Kaggle.
 
-Missing data: link to the song, descriptiv data
+## Cleaning data
+Getting rid of useless columns for this project.
+
+## Scraping lyrics from [genie.com](https://api.genius.com)
+Searching the Lyrics with the title and artist and scraping the div with the lyrics.
 
