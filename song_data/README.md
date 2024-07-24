@@ -8,3 +8,5 @@ Getting rid of useless columns for this project.
 ## Scraping lyrics from [genie.com](https://api.genius.com)
 Searching the Lyrics with the title and artist and scraping the div with the lyrics.
 
+## Ideas for the future
+- Scrape the lyrics with multithreading to speed it up
