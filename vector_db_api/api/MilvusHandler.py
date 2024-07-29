@@ -11,7 +11,7 @@ from sentence_transformers import SentenceTransformer
 
 class MilvusHandler:
     def __init__(self,  
-                 collectionName = "SONG_DB", 
+                 collectionName = "song_collection", 
                  indexName = "embeddings",
                  dim=384, 
                  connection_type:str = "default", 
@@ -47,7 +47,6 @@ class MilvusHandler:
         return sumV / len(vectorArr)
     
     def search_playlist(self, playlist:list) -> list:
-        # playlist=["id", "id", "id"]
 
         print(playlist)
 
@@ -55,12 +54,14 @@ class MilvusHandler:
         collection_milvus: Collection = Collection(name=self.collection_name) 
         # to do
         # for id in playlist get embedding in milvus
+        structured_playlist: list = [i['id'] for i in playlist]
+
         results: list = collection_milvus.query(
-            expr=f"id in {playlist}",
-            output_fields=["embedding"]
+            expr=f"id in {str(structured_playlist)}",
+            output_fields=["embeddings"]
         )   
 
-        embeddings:list = [result["embedding"] for result in results]
+        embeddings:list = [result["embeddings"] for result in results]
 
         playlist_embedding:list = self.__avg_vector_array(embeddings)
         return self.search_embedding(playlist_embedding)
