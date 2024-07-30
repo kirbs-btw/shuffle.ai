@@ -1,46 +1,55 @@
 {
     "openapi": "3.0.0",
     "info": {
-      "title": "Milvus API",
-      "version": "1.0.0",
-      "description": "API to use the Milvus Vector DB"
+        "title": "Milvus API",
+        "version": "1.0.0",
+        "description": "API to use the Milvus Vector DB"
     },
     "paths": {
-      "/search/playlist": {
-        "post": {
-          "summary": "search fitting songs",
-          "operationId": "searchPlaylists",
-          "requestBody": {
-            "description": "Array of song IDs to search",
-            "required": true,
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "song_ids": {
-                    "type": "integer"
-                  }
-                }
-              }
-            }
-          },
-          "responses": {
-            "200": {
-              "description": "Successful response with an array of song IDs",
-              "content": {
-                "application/json": {
-                  "schema": {
-                    "type": "array",
-                    "song_ids": {
-                      "type": "integer"
+        "/search/playlist": {
+            "post": {
+                "summary": "search fitting songs",
+                "operationId": "searchPlaylists",
+                "requestBody": {
+                    "description": "Array of song IDs to search",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "playlist": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer"
+                                            }
+                                        },
+                                        "required": [
+                                            "id"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
                     }
-                  }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Successful response with an array of song IDs",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "song_ids": {
+                                        "type": "integer"
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
-              }
             }
-          }
         }
-      }
     }
-  }
-  
+}

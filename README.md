@@ -1,10 +1,13 @@
 # Shuffle.ai
 You can test the project [here]().
+If there is no website --> project not finished :) 
 
 ## General
 The project aims to use a [vector database](https://milvus.io/docs/install_standalone-docker.md) to find fitting songs for a playlist. Using the Vector DB the project understands the direction of the playlist and can suggest really fitting songs. Building up the Playlist with a relational DB.
 
 ## Quality analysis
+By now only can talk about small tests unittesting etc. comming.
+Reuslts at first glance are solid --> 3 out of 6 suggestions okay fit the playlist
 
 ## Achitecture
 
@@ -13,6 +16,8 @@ The project aims to use a [vector database](https://milvus.io/docs/install_stand
 The project uses a milvus vectordatabase setup with the [e5-small](https://huggingface.co/intfloat/multilingual-e5-small) embedding model to create the vector representation.
 
 ### Ingestion
+Data ingestion will be possible with the api...
+By now the ingestion takes place with a Notebook in the song_data folder.
 
 
 ## Data

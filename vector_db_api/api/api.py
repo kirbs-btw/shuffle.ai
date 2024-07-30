@@ -37,8 +37,6 @@ def search_word():
 @api.post('/search/playlist')
 def search_playlist():
     """
-    takes playlist and returns list of songs
-    - openapi spec comming...
     playlist has form 
     {
         "playlist": [
