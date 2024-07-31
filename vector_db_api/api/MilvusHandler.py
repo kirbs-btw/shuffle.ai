@@ -48,20 +48,22 @@ class MilvusHandler:
     
     def search_playlist(self, playlist:list) -> list:
 
-        print(playlist)
-
         self.__connect_to_db()
         collection_milvus: Collection = Collection(name=self.collection_name) 
         # to do
         # for id in playlist get embedding in milvus
         structured_playlist: list = [i['id'] for i in playlist]
 
-        for id in structured_playlist:
-            results: list = collection_milvus.query(
-                expr=f'id in ["{id}"]',
+        search_expression = 'id in ['
+        for song in playlist:
+            search_expression += '"' + song['id'] + '",'
+        search_expression += ']'
+
+
+        results: list = collection_milvus.query(
+                expr=search_expression,
                 output_fields=["embeddings"]
             )   
-            print(results)
 
         embeddings:list = [result["embeddings"] for result in results]
 
