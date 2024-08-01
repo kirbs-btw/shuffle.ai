@@ -50,9 +50,6 @@ class MilvusHandler:
 
         self.__connect_to_db()
         collection_milvus: Collection = Collection(name=self.collection_name) 
-        # to do
-        # for id in playlist get embedding in milvus
-        structured_playlist: list = [i['id'] for i in playlist]
 
         search_expression = 'id in ['
         for song in playlist:
@@ -65,9 +62,10 @@ class MilvusHandler:
                 output_fields=["embeddings"]
             )   
 
-        embeddings:list = [result["embeddings"] for result in results]
-
+        # get correct querying here
+        embeddings:list = [result["embeddings"] for result in results]    
         playlist_embedding:list = self.__avg_vector_array(embeddings)
+
         return self.search_embedding(playlist_embedding)
 
     def setup_collection(self) -> Collection:
@@ -111,6 +109,8 @@ class MilvusHandler:
         collection_milvus.create_index(self.index_name, index)
 
     def search_embedding(self, embedding) -> list:
+        # connecting to the db
+        self.__connect_to_db()
         collection_milvus: Collection = Collection(name=self.collection_name) 
         collection_milvus.load()
 
@@ -119,8 +119,10 @@ class MilvusHandler:
             "params": {"nprobe": 10},
         }
 
+        print("checkpoint a")
+
         # results
-        return collection_milvus.search(embedding, "embeddings", search_params, limit=5, output_fields=["id"])
+        return collection_milvus.search([embedding], "embeddings", search_params, limit=5, output_fields=["id"])
     
     def clear_collection(self) -> None:
         self.__connect_to_db(connection_type= self.connection_type, host=self.host, port=self.port)
