@@ -27,15 +27,9 @@ def search_word():
     # don't know if in need ?
     pass
 
-# curl -X POST -H "Content-Type: application/json" -d '{ "song_ids": [ {"id": "d6416719-d5ad-44f9-ba72-7a922865bc3b"}, {"id": "5f3c97c1-cc14-4429-8e62-c586106ea7d3"}]}' http://127.0.0.1:5000/search/playlist
-
-# curl -X POST -H "Content-Type: application/json" -d "{}" http://127.0.0.1:5000/search/playlist
-
-# curl -X POST -H "Content-Type: application/json" -d """{ "playlist": [{"id": "d6416719-d5ad-44f9-ba72-7a922865bc3b"}, {"id": "5f3c97c1-cc14-4429-8e62-c586106ea7d3"}]}""" http://127.0.0.1:5000/search/playlist
-
-
 @api.post('/search/playlist')
 def search_playlist():
+    # need to optimize that fun stuff here
     """
     playlist has form 
     {
@@ -62,7 +56,7 @@ def search_playlist():
     }
     for hits in results:
        for hit in hits:
-           response["song_ids"].append(hit["id"])
-
+           response["song_ids"].append(hit.id)
+    
     return response
     
