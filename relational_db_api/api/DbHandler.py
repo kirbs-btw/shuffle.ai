@@ -1,15 +1,22 @@
+import pandas as pd
+
 class DbHandler:
-    def __init__(self):
-        pass
+    def __init__(self, data_path = "song_data.csv"):
+        self.df = pd.read_csv(data_path)
     
     def search_input(self, search_input:str) -> list:
         results: dict = {
             "songs" : [
-
+                
             ]
         }
-        # checking for sql inject
-        search_lower: str = search_input.lower()
+        
+        # searching for trackname 
+        matching_rows = self.df[self.df['track_name'].str.contains(search_input, case=False, na=False)]
+        matching_rows = matching_rows.sort_values(by='track_popularity')
+
+        # still need to do the same for the rest... adding them together to resuslts and thinking of a structure to send 
+        # the api response
 
         # search for complete input artist and title
         query: str = "SELECT * FROM songs WHERE title LIKE '%{}%';".format(search_lower) # rank spot #0
