@@ -13,15 +13,27 @@ def ping():
     }
 
 
-@api.post('/search/phrase')
+@api.post('/get/songs')
 def search_playlist():
+    """
+    input = {
+        "songs_ids": [
+            {"id": "some_id"}
+        ]
+    }
+    """
+
     data = request.json()
 
     DB_HANDLER = DbHandler()
-    result = DB_HANDLER.search(data["search_phrase"])
+    results = DB_HANDLER.get_songs_from_ids(data["search_phrase"])
 
     response = {
-
+        "song_data": [
+        ]
     }
+    
+    for result in results:
+        response.append(result)
     return response
     
