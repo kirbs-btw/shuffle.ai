@@ -1,6 +1,6 @@
 from flask import Blueprint
 from flask import request
-from DbHandler import *
+from .DbHandler import DbHandler
 
 api = Blueprint('api', __name__)
 
@@ -23,14 +23,14 @@ def search_playlist():
     }
     """
 
-    data = request.json()
+    data = request.json
 
     DB_HANDLER = DbHandler()
-    results = DB_HANDLER.get_songs_from_ids(data["search_phrase"])
+    results = DB_HANDLER.get_data_from_ids(data["search_phrase"])
+    print(results)
 
     response = {
-        "song_data": [
-        ]
+        "song_data": []
     }
     
     for result in results:

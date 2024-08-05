@@ -3,7 +3,7 @@ import pandas as pd
 # just doint some quick api with a df as a database to test the architecture
 
 class DbHandler:
-    def __init__(self, data_path = "song_data.csv"):
+    def __init__(self, data_path = "api/song_data.csv"):
         self.df = pd.read_csv(data_path)
     
     def get_data_from_ids(self, data):
@@ -11,10 +11,10 @@ class DbHandler:
 
         matching_rows = self.df[self.df['track_id'].isin(id_list)]
 
+        print(matching_rows)
         # checking matching rows how they are structured to pars them later into the correct info that is needed by the 
         # front end still thinking about what is needed
-
-        pass
+        return matching_rows
 
     def __get_data_from_id(self):
         pass
