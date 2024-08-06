@@ -1,10 +1,13 @@
 import pandas as pd
-
+import os
 # just doint some quick api with a df as a database to test the architecture
 
 class DbHandler:
-    def __init__(self, data_path = "api/song_data.csv"):
-        self.df = pd.read_csv(data_path)
+    def __init__(self, rel_data_path = "song_data.csv"):
+        
+        abs_data_path = os.path.join(os.path.dirname(__file__), rel_data_path)
+        print(abs_data_path)
+        self.df = pd.read_csv(abs_data_path)
     
     def get_data_from_ids(self, data):
         id_list = [i["id"] for i in data["song_ids"]]        

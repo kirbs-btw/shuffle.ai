@@ -26,7 +26,7 @@ def search_playlist():
     data = request.json
 
     DB_HANDLER = DbHandler()
-    results = DB_HANDLER.get_data_from_ids(data["search_phrase"])
+    results = DB_HANDLER.get_data_from_ids(data["songs_ids"])
     print(results)
 
     response = {
