@@ -10,11 +10,9 @@ class DbHandler:
         self.df = pd.read_csv(abs_data_path)
     
     def get_data_from_ids(self, data):
-        id_list = [i["id"] for i in data["song_ids"]]        
+        id_list = [i["id"] for i in data]        
 
         matching_rows = self.df[self.df['track_id'].isin(id_list)]
-
-        print(matching_rows)
         # checking matching rows how they are structured to pars them later into the correct info that is needed by the 
         # front end still thinking about what is needed
         return matching_rows
