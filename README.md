@@ -9,7 +9,9 @@ The project aims to use a [vector database](https://milvus.io/docs/install_stand
 By now only can talk about small tests unittesting etc. comming.
 Reuslts at first glance are solid --> 3 out of 6 suggestions okay fit the playlist
 
-## Achitecture
+## Architecture
+Here the first draft of the architecture
+![Architecture](./img/architecture_darf1.png)
 
 ## Vector DB
 ### Setup
@@ -22,3 +24,7 @@ By now the ingestion takes place with a Notebook in the song_data folder.
 
 ## Data
 The startingpoint for the songs is a [dataset](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs) from kaggle. The set is cleaned for unnecessary columns and duplicates. With webscraping the data is extended by a lyrics column.
+
+## Comments
+- Could combine the two apis to one 
+    - querying the milvus is awful
