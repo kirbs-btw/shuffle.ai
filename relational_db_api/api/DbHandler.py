@@ -29,24 +29,26 @@ class DbHandler:
         }
         
         # searching for trackname 
-        matching_rows = self.df[self.df['track_name'].str.contains(search_input, case=False, na=False)]
-        matching_rows = matching_rows.sort_values(by='track_popularity')
+        matching_rows_tn = self.df[self.df['track_name'].str.contains(search_input, case=False, na=False)]
+        matching_rows_tn = matching_rows_tn.sort_values(by='track_popularity')
 
         # still need to do the same for the rest... adding them together to resuslts and thinking of a structure to send 
         # the api response
 
         # search for complete input artist and title
-        query: str = "SELECT * FROM songs WHERE title LIKE '%{}%';".format(search_lower) # rank spot #0
-        query: str = "SELECT * FROM songs WHERE artist LIKE '%{}%';".format(search_lower) # rank #1
-        results["songs"].append(self.__query_db(query))  
+        matching_rows_ar = self.df[self.df['track_artist'].str.contains(search_input, case=False, na=False)]
+        matching_rows_ar = matching_rows_ar.sort_values(by='track_popularity')
 
         # search for parts of the input ignore middle words like ("to", "the", "a", ...)
-        words: list = search_lower.split()
+        words: list = search_input.split()
+
+        
 
         for word in words:
-            query: str = "SELECT * FROM songs WHERE title LIKE '%{}%';".format(word) # rank spot #2
-            query: str = "SELECT * FROM songs WHERE artist LIKE '%{}%';".format(word) # rank #3      
-            results["songs"].append(self.__query_db(query))  
+            matching_rows_tn_w = self.df[self.df['track_name'].str.contains(word, case=False, na=False)]
+            matching_rows_tn_w = matching_rows_tn.sort_values(by='track_popularity')
+            matching_rows_ar_w = self.df[self.df['track_artist'].str.contains(word, case=False, na=False)]
+            matching_rows_ar_w = matching_rows_ar.sort_values(by='track_popularity')
 
 
         # maybe combine the querys to one big one to have faster search ?
