@@ -1,6 +1,8 @@
 from flask import Blueprint
 from flask import request
 from .DbHandler import DbHandler
+import pandas as pd
+
 
 api = Blueprint('api', __name__)
 
@@ -27,8 +29,19 @@ def search_playlist():
 
     DB_HANDLER = DbHandler()
     results = DB_HANDLER.get_data_from_ids(data["song_ids"])
-    print(results)
 
+    return format_song_data(results)
+
+@api.post('/search/string')
+def search_db():
+    data = request.json
+    user_input = data["user_input"]
+    DB_HANDLER = DbHandler()
+    results = DB_HANDLER.search_input(user_input)
+
+    return format_song_data(results)    
+
+def format_song_data(df: pd.DataFrame):
     response = {
         "song_data": []
     }
@@ -41,7 +54,7 @@ def search_playlist():
         "track_id": "" 
     }
 
-    for index, row in results.iterrows():
+    for index, row in df.iterrows():
         song_data_entry = song_data_structure.copy()  # Make a copy of the structure
         song_data_entry['track_name'] = row['track_name']
         song_data_entry['track_artist'] = row['track_artist']
@@ -53,4 +66,3 @@ def search_playlist():
 
 
     return response
-    
