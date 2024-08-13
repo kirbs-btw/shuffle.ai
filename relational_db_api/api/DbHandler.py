@@ -18,12 +18,6 @@ class DbHandler:
         return matching_rows
 
     def search_input(self, search_input:str) -> list:
-        results: dict = {
-            "songs" : [
-                
-            ]
-        }
-        
         # searching for trackname 
         matching_rows_tn = self.df[self.df['track_name'].str.contains(search_input, case=False, na=False)]
         matching_rows_tn = matching_rows_tn.sort_values(by='track_popularity')
