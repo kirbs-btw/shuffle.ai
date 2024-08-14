@@ -12,6 +12,7 @@ Reuslts at first glance are solid --> 3 out of 6 suggestions okay fit the playli
 ## Architecture
 Here the first draft of the architecture
 ![Architecture](./img/architecture_darf1.png)
+Switching to one flask api in the future --> more monolithic because it's a simple project
 
 ## Vector DB
 ### Setup
@@ -20,7 +21,6 @@ The project uses a milvus vectordatabase setup with the [e5-small](https://huggi
 ### Ingestion
 Data ingestion will be possible with the api...
 By now the ingestion takes place with a Notebook in the song_data folder.
-
 
 ## Data
 The startingpoint for the songs is a [dataset](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs) from kaggle. The set is cleaned for unnecessary columns and duplicates. With webscraping the data is extended by a lyrics column.
