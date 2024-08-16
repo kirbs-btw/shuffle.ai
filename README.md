@@ -10,9 +10,7 @@ By now only can talk about small tests unittesting etc. comming.
 Reuslts at first glance are solid --> 3 out of 6 suggestions okay fit the playlist
 
 ## Architecture
-Here the first draft of the architecture
-![Architecture](./img/architecture_darf1.png)
-Switching to one flask api in the future --> more monolithic because it's a simple project
+The Architecture is base on Flask. There is one frontend that is connected with a milvus and a relational DB.
 
 ## Vector DB
 ### Setup
