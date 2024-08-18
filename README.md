@@ -28,3 +28,4 @@ The startingpoint for the songs is a [dataset](https://www.kaggle.com/datasets/j
     - querying the milvus is awful
 - fine tweek milvus 
 - should switch everything to one flask api thing --> easy
+- add sigleton to the handlers 
