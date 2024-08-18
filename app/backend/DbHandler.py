@@ -9,8 +9,7 @@ class DbHandler:
         print(abs_data_path)
         self.df = pd.read_csv(abs_data_path)
     
-    def get_data_from_ids(self, data):
-        id_list = [i["id"] for i in data]        
+    def get_data_from_ids(self, id_list):        
 
         matching_rows = self.df[self.df['track_id'].isin(id_list)]
         # checking matching rows how they are structured to pars them later into the correct info that is needed by the 
