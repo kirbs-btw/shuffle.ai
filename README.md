@@ -29,3 +29,6 @@ The startingpoint for the songs is a [dataset](https://www.kaggle.com/datasets/j
 - fine tweek milvus 
 - should switch everything to one flask api thing --> easy
 - add sigleton to the handlers 
+- the frontend is just for show i think i should save the real playlist in some var in the backend
+    --> the buttons just trigger some process there and don't pull the data from the html
+    --> still thinking about how the add logic should look like 
