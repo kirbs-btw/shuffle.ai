@@ -2,7 +2,7 @@ import pandas as pd
 import os
 
 class DbHandler:
-    def __init__(self, rel_data_path = "song_data.csv") -> None:
+    def __init__(self, rel_data_path = "db/song_data.csv") -> None:
         abs_data_path = os.path.join(os.path.dirname(__file__), rel_data_path)
         self.df = pd.read_csv(abs_data_path)
     

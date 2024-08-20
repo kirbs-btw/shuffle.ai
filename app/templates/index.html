@@ -10,7 +10,7 @@
     <body>
         <div class="nav-section">
             <div class="search-bar">
-                <input type="text" id="search-input" onchange="search(value)">  
+                <input type="text" id="search-input" onchange="sendInput()">  
             </div>
         </div>
 
@@ -39,4 +39,24 @@
             <!-- list of the songs suggestions-->
         </div>
     </body>
+    <script>
+    function sendInput() {
+        var input_data = document.getElementById('search-input').value;
+        fetch('/word_search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({input: input_data})
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data.result);
+
+            // document.getElementById('result').innerText = data.result;
+        });
+    }
+
+    </script>
+
 </html>

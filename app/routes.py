@@ -6,7 +6,7 @@ from .backend.MilvusHandler import MilvusHandler
 main = Blueprint('main', __name__)
 
 DB_HANDLER = DbHandler()
-MILVUS_HANDLER = MilvusHandler()
+# MILVUS_HANDLER = MilvusHandler()
 
 
 @main.route('/')
@@ -25,7 +25,7 @@ def get_songs_from_word_search():
 
     data = request.json
     user_input = data["input"]
-    return DB_HANDLER.search_input(user_input)
+    return DB_HANDLER.searchInput(user_input)
 
 @main.post('/playerlist_suggestions')
 def get_songs_from_playlist():
