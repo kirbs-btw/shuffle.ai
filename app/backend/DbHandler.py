@@ -18,7 +18,7 @@ class DbHandler:
         matching_rows_ar = self.df[self.df['track_artist'].str.contains(search_input, case=False, na=False)]
         matching_rows_ar = matching_rows_ar.sort_values(by='track_popularity')
 
-        base_df.append(matching_rows_ar, ignore_index=True)
+        base_df = pd.concat([base_df, matching_rows_ar], ignore_index=True)
 
         words: list = self.__removeFiller(search_input.split())
 
@@ -30,7 +30,7 @@ class DbHandler:
 
             matching_rows_df_combined: pd.DataFrame = pd.concat([matching_rows_tn_w, matching_rows_ar_w], axis=0, ignore_index=True)
 
-            base_df.append(matching_rows_df_combined, ignore_index=True)
+            base_df = pd.concat([base_df, matching_rows_df_combined], ignore_index=True)
 
         # ranking search results
         # contains  id, title, link, all other data from that db...
@@ -38,9 +38,12 @@ class DbHandler:
         # send ping to a other db api that count the searched times for tracking
 
         # remove the duplicates
+        
+        # the result here is not quite correct more investigation
+        print(base_df)
 
         return base_df
     
-    def __removeFiller(words: list) -> list:
+    def __removeFiller(self, words: list) -> list:
         filter: list = ["to", "the", "a"]
         return [word for word in words if word not in filter]
