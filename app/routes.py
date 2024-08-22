@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, request
 from .backend.DbHandler import DbHandler
 from .backend.MilvusHandler import MilvusHandler
-
+import pandas as pd
 
 main = Blueprint('main', __name__)
 
@@ -25,7 +25,19 @@ def get_songs_from_word_search():
 
     data = request.json
     user_input = data["input"]
-    return DB_HANDLER.searchInput(user_input)
+
+    results: pd.DataFrame = DB_HANDLER.searchInput(user_input)
+
+    return {
+        "data": [
+            { 
+                "track_name" : row["track_name"],
+                "track_artist" : row["track_artist"],
+                "track_id": row["track_id"]
+            } 
+            for index, row in results.iterrows() 
+        ]
+    }
 
 @main.post('/playerlist_suggestions')
 def get_songs_from_playlist():

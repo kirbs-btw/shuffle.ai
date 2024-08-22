@@ -32,6 +32,13 @@ class DbHandler:
 
             base_df = pd.concat([base_df, matching_rows_df_combined], ignore_index=True)
 
+        # sorting by popularity - just temporary
+
+        base_df = base_df.sort_values(by='track_popularity')    
+
+        # taking only the 10 best ones
+        return_df = base_df[:10]
+
         # ranking search results
         # contains  id, title, link, all other data from that db...
 
@@ -39,10 +46,7 @@ class DbHandler:
 
         # remove the duplicates
         
-        # the result here is not quite correct more investigation
-        print(base_df)
-
-        return base_df
+        return return_df
     
     def __removeFiller(self, words: list) -> list:
         filter: list = ["to", "the", "a"]
