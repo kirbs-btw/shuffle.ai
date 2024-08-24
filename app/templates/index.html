@@ -10,17 +10,9 @@
     <body>
         <div class="nav-section">
             <div class="search-bar">
-                <input list="fruits" type="text" id="search-input">  
+                <input list="song-suggestions" type="text" id="search-input">  
                 <!-- example how to get suggestions to work-->
-                <datalist id="fruits">
-                    <option value="Apple">
-                    <option value="Banana">
-                    <option value="Cherry">
-                    <option value="Grapes">
-                    <option value="Orange">
-                    <option value="Mango">
-                    <option value="Pineapple">
-                    <option value="Strawberry">
+                <datalist id="song-suggestions">
                 </datalist>
             </div>
         </div>
@@ -61,7 +53,20 @@
         })
         .then(response => response.json())
         .then(data => {
-            console.log(data);
+            // clearing datalist
+            const datalist = document.getElementById("song-suggestions");
+            while (datalist.firstChild) {
+                datalist.removeChild(datalist.firstChild);
+            }
+            
+            json_array_songs = data.data;
+            json_array_songs.forEach(element => {
+                const option = document.createElement('option');
+                option.value = element.track_name;
+                datalist.appendChild(option);
+            });
+
+            
 
             // document.getElementById('result').innerText = data.result;
         });
@@ -70,6 +75,9 @@
     document.getElementById('search-input').addEventListener('input', function(event) {
             console.log('Current value:', event.target.value);
             sendInput(event.target.value);
+
+            
+
         });
 
     </script>
