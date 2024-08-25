@@ -4,6 +4,8 @@ from .backend.MilvusHandler import MilvusHandler
 import pandas as pd
 
 main = Blueprint('main', __name__)
+playlist_ids = []
+
 
 DB_HANDLER = DbHandler()
 # MILVUS_HANDLER = MilvusHandler()
@@ -38,6 +40,13 @@ def get_songs_from_word_search():
             for index, row in results.iterrows() 
         ]
     }
+
+@main.post('/add_song')
+def add_song():
+    data = request.json
+    id = data["song_id"]
+    playlist_ids.append(id)
+
 
 @main.post('/playerlist_suggestions')
 def get_songs_from_playlist():
