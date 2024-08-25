@@ -34,6 +34,8 @@ class DbHandler:
 
         # sorting by popularity - just temporary
 
+        base_df = base_df.drop_duplicates(subset=['track_name', 'track_artist'])
+
         base_df = base_df.sort_values(by='track_popularity')    
 
         # taking only the 10 best ones
