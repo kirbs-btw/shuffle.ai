@@ -22,7 +22,7 @@
     <div class="playlist-section">
         <h1 id="playlist_title">love songs</h1>
         <!-- list of the songs added to the playlist -->
-        <div class="playlist-container">
+        <div class="playlist-container" id="playlist-div-id">
             <!-- playlist item-->
             <div class="song-container">
                 <div class="start-song-div">
@@ -88,9 +88,14 @@
         sendInput(event.target.value);
     });
 
-    // add song to playlist
-    function addSong() {
+    // add song to playlist visualy
+    function addSong(title, artist, song_id) {
+        var songHTML = `<div class="song-container" id="${song_id}"> <div class="start-song-div">  <p class="start-song-section"><b>${title}</b>- ${artist}</p> </div> <div class="middle-song-div"> <p class="middle-song-section">34.002</p> </div> <div class="end-song-div"> <p class="end-song-section">></p> </div> </div>`;
+        document.getElementById("song-container-div").innerHTML += songHTML;
+    }
 
+    function removeSong(song_id) {
+        document.getElementById(song_id).remove();
     }
 </script>
 
