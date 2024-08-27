@@ -94,8 +94,28 @@
         document.getElementById("song-container-div").innerHTML += songHTML;
     }
 
-    function removeSong(song_id) {
+    function removeSongFromDiv(song_id) {
         document.getElementById(song_id).remove();
+    }
+
+    function removeSong(song_id) {
+
+
+        fetch('/remove_song', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    id: song_id
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // remove the song from the ui
+                removeSongFromDiv(song_id);
+            });
+
     }
 </script>
 

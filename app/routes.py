@@ -47,6 +47,14 @@ def add_song():
     id = data["song_id"]
     playlist_ids.append(id)
 
+@main.post('/remove_song')
+def remove_song():
+    data = request.data
+    input = data['id']
+    playlist_ids.remove(input)
+
+    return {"msg": "done"}
+
 
 @main.post('/playerlist_suggestions')
 def get_songs_from_playlist():
