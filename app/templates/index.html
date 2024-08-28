@@ -14,8 +14,8 @@
         <div class="search-bar">
             <input list="song-suggestions" type="text" id="search-input">
             <!-- example how to get suggestions to work-->
-            <datalist id="song-suggestions">
-                </datalist>
+            <datalist id="song-suggestions"></datalist>
+            <button id="search-button" onclick="">search</button>
         </div>
     </div>
 
@@ -100,8 +100,6 @@
     }
 
     function removeSong(song_id) {
-
-
         fetch('/remove_song', {
                 method: 'POST',
                 headers: {
