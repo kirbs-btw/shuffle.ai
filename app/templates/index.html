@@ -32,7 +32,8 @@
                     <p class="middle-song-section">34.002</p>
                 </div>
                 <div class="end-song-div">
-                    <p class="end-song-section">></p>
+                    <button class="end-song-section add-song-button">-</button>
+                    <!--<p class="end-song-section">></p>-->
                 </div>
             </div>
             <!-- splitting the song sections in 3 parts to have an even spacing -->
@@ -90,7 +91,7 @@
 
     // add song to playlist visualy
     function addSong(title, artist, song_id) {
-        var songHTML = `<div class="song-container" id="${song_id}"> <div class="start-song-div">  <p class="start-song-section"><b>${title}</b>- ${artist}</p> </div> <div class="middle-song-div"> <p class="middle-song-section">34.002</p> </div> <div class="end-song-div"> <p class="end-song-section">></p> </div> </div>`;
+        var songHTML = `<div class="song-container" id="${song_id}"> <div class="start-song-div">  <p class="start-song-section"><b>${title}</b>- ${artist}</p> </div> <div class="middle-song-div"> <p class="middle-song-section">34.002</p> </div> <div class="end-song-div"> <button class="end-song-section add-song-button" value="${song_id}" onclick="removeSong(this.value)">-</button> </div> </div>`;
         document.getElementById("song-container-div").innerHTML += songHTML;
     }
 
