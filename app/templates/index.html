@@ -15,7 +15,7 @@
             <input list="song-suggestions" type="text" id="search-input">
             <!-- example how to get suggestions to work-->
             <datalist id="song-suggestions"></datalist>
-            <button id="search-button" onclick="">search</button>
+            <button id="search-button" onclick="addSongFromInput()">search</button>
         </div>
     </div>
 
@@ -78,7 +78,7 @@
                 json_array_songs = data.data;
                 json_array_songs.forEach(element => {
                     const option = document.createElement('option');
-                    option.value = element.track_name;
+                    option.value = element.track_name + " " + element.track_id;
                     datalist.appendChild(option);
                 });
             });
@@ -97,6 +97,13 @@
 
     function removeSongFromDiv(song_id) {
         document.getElementById(song_id).remove();
+    }
+
+    function addSongFromInput() {
+        var strInput = document.getElementById("search-input").value;
+        console.log(strInput);
+        var id = strInput.slice(-36);
+        console.log(id);
     }
 
     function removeSong(song_id) {

@@ -38,6 +38,10 @@
     background-color: var(--secondary-color);
 }
 
+#search-button:hover {
+    background-color: var(--hover-secondary-color);
+}
+
 #search-button:focus {
     border: none;
     outline: none;
