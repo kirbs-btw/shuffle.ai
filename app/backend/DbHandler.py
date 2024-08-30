@@ -1,12 +1,13 @@
 import pandas as pd
 import os
+import numpy as np
 
 class DbHandler:
     def __init__(self, rel_data_path = "db/song_data.csv") -> None:
         abs_data_path = os.path.join(os.path.dirname(__file__), rel_data_path)
         self.df = pd.read_csv(abs_data_path)
     
-    def getDataFromIdList(self, id_list) -> pd.DataFrame:        
+    def getDataFromIdList(self, id_list):
         return self.df[self.df['track_id'].isin(id_list)]
 
     def searchInput(self, search_input:str) -> pd.DataFrame:

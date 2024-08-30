@@ -4,6 +4,9 @@ from .backend.MilvusHandler import MilvusHandler
 import pandas as pd
 
 main = Blueprint('main', __name__)
+
+
+# still need 
 playlist_ids = []
 
 
@@ -49,11 +52,26 @@ def add_song():
 
 @main.post('/remove_song')
 def remove_song():
-    data = request.data
-    input = data['id']
+    data = request.json
+    input = data['song_id']
     playlist_ids.remove(input)
 
     return {"msg": "done"}
+
+@main.post('/add_song_to_playlist')
+def add_song_to_playlist():
+    data = request.json
+    id = data["song_id"]
+    playlist_ids.append(id)
+    id_list = [id]
+    resp = DB_HANDLER.getDataFromIdList(id_list)
+
+    return {
+        "track_name": resp["track_name"].iloc[0],
+        "track_artist": resp["track_artist"].iloc[0],
+        "track_id": resp["track_id"].iloc[0]
+    }
+
 
 
 @main.post('/playerlist_suggestions')
