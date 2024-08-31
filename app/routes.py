@@ -9,7 +9,6 @@ main = Blueprint('main', __name__)
 # still need 
 playlist_ids = []
 
-
 DB_HANDLER = DbHandler()
 # MILVUS_HANDLER = MilvusHandler()
 
@@ -56,6 +55,8 @@ def remove_song():
     input = data['song_id']
     playlist_ids.remove(input)
 
+    print(playlist_ids)
+
     return {"msg": "done"}
 
 @main.post('/add_song_to_playlist')
@@ -65,6 +66,9 @@ def add_song_to_playlist():
     playlist_ids.append(id)
     id_list = [id]
     resp = DB_HANDLER.getDataFromIdList(id_list)
+
+    print(playlist_ids)
+    print("-------------------------------------")
 
     return {
         "track_name": resp["track_name"].iloc[0],
