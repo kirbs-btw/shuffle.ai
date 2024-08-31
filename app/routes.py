@@ -55,8 +55,6 @@ def remove_song():
     input = data['song_id']
     playlist_ids.remove(input)
 
-    print(playlist_ids)
-
     return {"msg": "done"}
 
 @main.post('/add_song_to_playlist')
@@ -67,16 +65,11 @@ def add_song_to_playlist():
     id_list = [id]
     resp = DB_HANDLER.getDataFromIdList(id_list)
 
-    print(playlist_ids)
-    print("-------------------------------------")
-
     return {
         "track_name": resp["track_name"].iloc[0],
         "track_artist": resp["track_artist"].iloc[0],
         "track_id": resp["track_id"].iloc[0]
     }
-
-
 
 @main.post('/playerlist_suggestions')
 def get_songs_from_playlist():

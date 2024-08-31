@@ -30,29 +30,62 @@ document.getElementById('search-input').addEventListener('input', function(event
     sendInput(event.target.value);
 });
 
-// add song to playlist visually
-function addSong(title, artist, song_id) {
-    var songHTML = `<div class="song-container" id="${song_id}"> <div class="start-song-div">  <p class="start-song-section"><b>${title}</b>- ${artist}</p> </div> <div class="middle-song-div"> <p class="middle-song-section">34.002</p> </div> <div class="end-song-div"> <button class="end-song-section add-song-button" value="${song_id}" onclick="removeSong(this.value)">-</button> </div> </div>`;
+function addSongToPlaylistDiv(title, artist, song_id) {
+    var songHTML = `<div class="song-container" id="${song_id}"> 
+                        <div class="start-song-div">  
+                                <p class="start-song-section"><b>${title}</b>- ${artist}</p> 
+                        </div> 
+                        <div class="middle-song-div"> 
+                            <p class="middle-song-section">34.002</p> 
+                        </div> 
+                        <div class="end-song-div"> 
+                            <button class="end-song-section add-song-button" value="${song_id}" onclick="removeSong(this.value)">-</button> 
+                        </div> 
+                    </div>`;
     document.getElementById("playlist-div-id").innerHTML += songHTML;
 }
 
-function removeSongFromDiv(song_id) {
-    document.getElementById(song_id).remove();
+function addSongToSuggestionDiv(title, artist, song_id) {
+    var songHTML = `<div class="song-container" id="${song_id}">
+                        <div class="start-song-div">
+                            <p class="start-song-section"><b>${title} </b> - ${artist}</p>
+                        </div>
+                        <div class="middle-song-div">
+                            <p class="middle-song-section">placholder</p>
+                        </div>
+                        <div class="end-song-div"><button class="end-song-section add-song-button" value="${song_id}" onclick="addSong(value)">+</button></div>
+                    </div>`
+    document.getElementById("suggestion-container-songs").innerHTML += songHTML;
+}
+
+function addSong(id) {
+    addSongFromId(id);
+    removeElementById(id);
+}
+
+function doSuggestion() {
+
 }
 
 function addSongFromInput() {
+    // gettting the id - not nice
     var strInput = document.getElementById("search-input").value;
     console.log(strInput);
-    var the_song_id = strInput.slice(-36);
+    var song_id = strInput.slice(-36);
 
+    addSongFromId(song_id);
+}
+
+function addSongFromId(song_id) {
     // adding the entry to the playlist div and the list in python api 
+
     fetch('/add_song_to_playlist', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                song_id: the_song_id
+                song_id: song_id
             })
         })
         .then(response => response.json())
@@ -60,10 +93,8 @@ function addSongFromInput() {
             track_name = data.track_name;
             track_artist = data.track_artist;
             track_id = data.track_id;
-            // adding song to playlist div
-            addSong(track_name, track_artist, track_id);
+            addSongToPlaylistDiv(track_name, track_artist, track_id);
         });
-
 }
 
 function removeSong(the_song_id) {
@@ -79,7 +110,11 @@ function removeSong(the_song_id) {
         .then(response => response.json())
         .then(data => {
             // remove the song from the ui
-            removeSongFromDiv(the_song_id);
+            removeElementById(the_song_id);
         });
+}
 
+// util
+function removeElementById(song_id) {
+    document.getElementById(song_id).remove();
 }

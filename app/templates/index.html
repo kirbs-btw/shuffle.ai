@@ -24,37 +24,25 @@
         <!-- list of the songs added to the playlist -->
         <div class="playlist-container" id="playlist-div-id">
             <!-- playlist item-->
-            <!--<div class="song-container">
-                <div class="start-song-div">
-                    <p class="start-song-section"><b>Perfect</b>- Ed Sheeran</p>
-                </div>
-                <div class="middle-song-div">
-                    <p class="middle-song-section">34.002</p>
-                </div>
-                <div class="end-song-div">
-                    <button class="end-song-section add-song-button">-</button>
-                </div>
-            </div> -->
-            <!-- splitting the song sections in 3 parts to have an even spacing -->
         </div>
     </div>
     <div class="suggestions-section">
         <h1 id="playlist_title">suggestions</h1>
-        <div class="suggestion-container">
-            <div class="song-container">
+        <button class="search-button" onclick="doSuggestion()"> Suggest song</button>
+        <div class="suggestion-container" id="suggestion-container-songs">
+            <div class="song-container" id="3329fab5-62a1-40ef-ad7f-d5b4faf217bd">
                 <div class="start-song-div">
                     <p class="start-song-section"><b>Castle On the Hill </b> - Ed Sheeran</p>
                 </div>
                 <div class="middle-song-div">
                     <p class="middle-song-section">34.002</p>
                 </div>
-                <div class="end-song-div"><button class="end-song-section add-song-button">+</button></div>
+                <div class="end-song-div"><button class="end-song-section add-song-button" value="3329fab5-62a1-40ef-ad7f-d5b4faf217bd" onclick="addSongSuggestion(value)">+</button></div>
             </div>
         </div>
         <!-- list of the songs suggestions-->
     </div>
 </body>
-
 <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 
 </html>
