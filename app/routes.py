@@ -10,7 +10,7 @@ main = Blueprint('main', __name__)
 playlist_ids = []
 
 DB_HANDLER = DbHandler()
-# MILVUS_HANDLER = MilvusHandler()
+MILVUS_HANDLER = MilvusHandler()
 
 
 @main.route('/')
@@ -73,35 +73,23 @@ def add_song_to_playlist():
 
 @main.post('/playerlist_suggestions')
 def get_songs_from_playlist():
-    """
-    {
-        playlist: {
-            "type": "array"
-            "items": {
-                "song_id": {
-                    "type": "string"
-                }
-            }
-        }
-    }
-    """
-
-    # don't know about the logic behind the db handler and the mapping 
-    # of the found id to song data seems a bite komplex writte 
-    # rebuild pls
-
-    data = request.json
-    playlist = data["playlist"]
-
-    results = MILVUS_HANDLER.search_playlist(playlist)
+    results = MILVUS_HANDLER.search_playlist(playlist_ids)
 
     response = []
     for hits in results:
        for hit in hits:
            response.append(hit.id)
 
-    DB_HANDLER.get_data_from_ids(response)
+    suggestionsDf = DB_HANDLER.getDataFromIdList(response)
 
-
-    return response
+    return {
+        "data": [
+            { 
+                "track_name" : row["track_name"],
+                "track_artist" : row["track_artist"],
+                "track_id": row["track_id"]
+            } 
+            for index, row in suggestionsDf.iterrows() 
+        ]
+    }
 

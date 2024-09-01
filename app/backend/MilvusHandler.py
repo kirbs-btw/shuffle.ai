@@ -47,13 +47,15 @@ class MilvusHandler:
         return sumV / len(vectorArr)
     
     def search_playlist(self, playlist:list) -> list:
+        # still need to remove songs that are in the playlist 
+
 
         self.__connect_to_db()
         collection_milvus: Collection = Collection(name=self.collection_name) 
 
         search_expression = 'id in ['
         for song in playlist:
-            search_expression += '"' + song['id'] + '",'
+            search_expression += '"' + song + '",'
         search_expression += ']'
 
 

@@ -58,13 +58,40 @@ function addSongToSuggestionDiv(title, artist, song_id) {
     document.getElementById("suggestion-container-songs").innerHTML += songHTML;
 }
 
+function suggestSongs() {
+    // clear inside div 
+    document.getElementById("suggestion-container-songs").innerHTML = "";
+
+
+    fetch('/playerlist_suggestions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                status: 200
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+
+            songs_data = data.data;
+
+            for (let i = 0; i < songs_data.length; i++) {
+                addSongToSuggestionDiv(songs_data[i].track_name, songs_data[i].track_artist, songs_data[i].track_id);
+            }
+        });
+
+
+    // post to the python api to return the songs to be suggested 
+    // add the songs to be suggested with the add song to suggestion div 
+}
+
+
+// behind the button of the suggested songs
 function addSong(id) {
     addSongFromId(id);
     removeElementById(id);
-}
-
-function doSuggestion() {
-
 }
 
 function addSongFromInput() {
