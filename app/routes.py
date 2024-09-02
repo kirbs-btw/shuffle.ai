@@ -82,6 +82,10 @@ def get_songs_from_playlist():
 
     suggestionsDf = DB_HANDLER.getDataFromIdList(response)
 
+    for id in playlist_ids:
+        suggestionsDf = suggestionsDf[suggestionsDf['track_id'] != id]
+
+
     return {
         "data": [
             { 

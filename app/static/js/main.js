@@ -81,10 +81,6 @@ function suggestSongs() {
                 addSongToSuggestionDiv(songs_data[i].track_name, songs_data[i].track_artist, songs_data[i].track_id);
             }
         });
-
-
-    // post to the python api to return the songs to be suggested 
-    // add the songs to be suggested with the add song to suggestion div 
 }
 
 

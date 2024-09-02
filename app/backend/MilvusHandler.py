@@ -125,7 +125,7 @@ class MilvusHandler:
         print("checkpoint a")
 
         # results
-        return collection_milvus.search([embedding], "embeddings", search_params, limit=5, output_fields=["id"])
+        return collection_milvus.search([embedding], "embeddings", search_params, limit=50, output_fields=["id"])
     
     def clear_collection(self) -> None:
         self.__connect_to_db(connection_type= self.connection_type, host=self.host, port=self.port)
