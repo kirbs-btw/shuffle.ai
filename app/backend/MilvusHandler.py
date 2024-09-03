@@ -46,7 +46,7 @@ class MilvusHandler:
         for i in npVectorArr[1:]: sumV += i
         return sumV / len(vectorArr)
     
-    def search_playlist(self, playlist:list) -> list:
+    def suggestion_songs_from_ids(self, playlist:list, result_num = 50) -> list:
         # still need to remove songs that are in the playlist 
 
 
@@ -68,7 +68,7 @@ class MilvusHandler:
         embeddings:list = [result["embeddings"] for result in results]    
         playlist_embedding:list = self.__avg_vector_array(embeddings)
 
-        return self.search_embedding(playlist_embedding)
+        return self.search_embedding(playlist_embedding, result_num)
 
     def setup_collection(self) -> Collection:
         # todo debug this
@@ -111,7 +111,7 @@ class MilvusHandler:
         }
         collection_milvus.create_index(self.index_name, index)
 
-    def search_embedding(self, embedding) -> list:
+    def search_embedding(self, embedding, result_num) -> list:
         # connecting to the db
         self.__connect_to_db()
         collection_milvus: Collection = Collection(name=self.collection_name) 
@@ -122,10 +122,8 @@ class MilvusHandler:
             "params": {"nprobe": 10},
         }
 
-        print("checkpoint a")
-
         # results
-        return collection_milvus.search([embedding], "embeddings", search_params, limit=50, output_fields=["id"])
+        return collection_milvus.search([embedding], "embeddings", search_params, limit=result_num, output_fields=["id"])
     
     def clear_collection(self) -> None:
         self.__connect_to_db(connection_type= self.connection_type, host=self.host, port=self.port)

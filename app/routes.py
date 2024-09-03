@@ -73,7 +73,7 @@ def add_song_to_playlist():
 
 @main.post('/playerlist_suggestions')
 def get_songs_from_playlist():
-    results = MILVUS_HANDLER.search_playlist(playlist_ids)
+    results = MILVUS_HANDLER.suggestion_songs_from_ids(playlist_ids)
 
     response = []
     for hits in results:
