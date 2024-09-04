@@ -1,5 +1,0 @@
-pymilvus==2.2.8
-apiflask
-numpy==2.0.0
-sentence_transformers
-flask

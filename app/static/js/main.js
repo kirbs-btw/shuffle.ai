@@ -97,6 +97,7 @@ function addSongFromInput() {
     var song_id = strInput.slice(-36);
 
     addSongFromId(song_id);
+    document.getElementById("search-input").value = "";
 }
 
 function addSongFromId(song_id) {
