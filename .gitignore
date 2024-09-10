@@ -4,5 +4,6 @@ milvus_compose
 vector_db_api/api/__pycache__
 relational_db_api/api/__pycache__
 song_data/old_data_preprocessing/data_preprocessing/.env
+song_data/big_data_scraping/data_preprocessing/.env
 app/__pycache__
 app/backend/__pycache__
