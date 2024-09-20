@@ -16,20 +16,21 @@ Reuslts at first glance are ok --> 3 out of 6 suggestions okay fit the playlist
 The Architecture is base on Flask. There is one frontend that is connected with a milvus and a relational DB.
 Sketch comming...
 
-## Vector DB
-### Setup
-The project uses a milvus vectordatabase setup with the [e5-small](https://huggingface.co/intfloat/multilingual-e5-small) embedding model to create the vector representation.
+## Setup
+0. Install the [requirements.txt](https://github.com/kirbs-btw/shuffle.ai/blob/main/requirements.txt).
+1. Setup the vectorstore with [this](https://github.com/kirbs-btw/shuffle.ai/blob/main/milvus/setup.sh) shell script.
+2. Ingest the data into the vector store with the [ingestion notebook](https://github.com/kirbs-btw/shuffle.ai/blob/main/song_data/data_ingestion/data_ingestion.ipynb).
+3. Run the [run.py](https://github.com/kirbs-btw/shuffle.ai/blob/main/run.py).
+4. Access the project on [localhost](http://localhost:5000/).
+5. Try it - open an issue, ...
 
-### Ingestion
-Data ingestion will be possible with the api...
-By now the ingestion takes place with a Notebook in the song_data folder.
 
 ## Data
 The startingpoint for the songs is a [dataset](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs) from kaggle. The set is cleaned for unnecessary columns and duplicates. With webscraping the data is extended by a lyrics column. By now the tested data is about 3.5k songs. 
 
 Working on a dataset with about 90k songs
 
-## Comments
+## WIP - Comments
 - fine tweek milvus 
 - filter out basic words, something like I, you, and, filler words...
 - get some test going to determin if the suggestion gets better
