@@ -8,7 +8,7 @@ The project aims to use a [vector database](https://milvus.io/docs/install_stand
 The method of embedding the songs (work in progress / research) is to embedd the songs lyrics with the [e5-small](https://huggingface.co/intfloat/multilingual-e5-small) model. The playlist contains multiple songs that all can be described by a vector in the db. After taking the average the nearest fitting songs are searched in the db. 
 
 ## Quality analysis
-By now only can talk about small tests unittesting etc. comming.
+Unittests comming...
 
 Reuslts at first glance are ok --> 3 out of 6 suggestions okay fit the playlist
 
@@ -26,9 +26,22 @@ Sketch comming...
 
 
 ## Data
-The startingpoint for the songs is a [dataset](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs) from kaggle. The set is cleaned for unnecessary columns and duplicates. With webscraping the data is extended by a lyrics column. By now the tested data is about 3.5k songs. 
+[Small Dataset](https://raw.githubusercontent.com/kirbs-btw/shuffle.ai/refs/heads/main/song_data/old_data_preprocessing/song_data.csv) (3.5k):
 
-Working on a dataset with about 90k songs
+The startingpoint for the songs is a [dataset](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs) from kaggle. The set is cleaned for unnecessary columns and duplicates. With webscraping the data is extended by a lyrics column.
+
+[Big Dataset](https://github.com/kirbs-btw/shuffle.ai/tree/main/song_data/big_data_scraping)(90k): 
+1. Combining datasets to in terms of track_name and track_artist.
+2. Adding a unique id to every song
+3. scraping the lyrics via the [genius API](https://genius.com/)
+
+datasets:
+- [Top 30k Spotify Songs](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs)
+- [Most Streamed Spotify Songs 2024](https://www.kaggle.com/datasets/nelgiriyewithana/most-streamed-spotify-songs-2024)
+- [Spotify Million Song Dataset](https://www.kaggle.com/datasets/notshrirang/spotify-million-song-dataset)
+- [Spotify 1.2M+ Songs](https://www.kaggle.com/datasets/rodolfofigueroa/spotify-12m-songs)
+
+
 
 ## WIP - Comments
 - fine tweek milvus 
