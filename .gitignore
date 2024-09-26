@@ -7,6 +7,7 @@ song_data/old_data_preprocessing/data_preprocessing/.env
 song_data/big_data_scraping/data_preprocessing/.env
 song_data/big_data_scraping/data_preprocessing/big_song_data_threading_save.csv
 song_data/big_data_scraping/data_preprocessing/song_data_big.csv
+song_data/big_data_scraping/data_preprocessing/song_data_70k.csv
 song_data/big_data_scraping/data_preprocessing/tmp
 app/__pycache__
 app/backend/__pycache__
