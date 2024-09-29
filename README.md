@@ -6,12 +6,16 @@ The project aims to use a [vector database](https://milvus.io/docs/install_stand
 The method for embedding the songs (currently a work in progress and subject to further research) involves embedding song lyrics using the [e5-small](https://huggingface.co/intfloat/multilingual-e5-small) model. Each song in the playlist is represented as a vector in the database. By calculating the average of these vectors, the system can then search for the nearest matching songs in the database.
 
 ## Quality analysis
+Assessing the objective quality of the suggested tracks poses a significant challenge. The following quality evaluation is inherently based on subjective assessments, supplemented by extensive testing across various genres and playlist configurations.
+
 ### Results on Small Dataset: 
 The overall intention of the playlist generation is clear. For example, when creating a playlist labeled "girly party music," the algorithm suggests tracks that generally align with this theme (with 5 out of 10 songs being a good fit). Similarly, when generating a rap playlist, the recommendations lean heavily toward the genre. Considering the limited data available, the results are quite promising.
 
 However, it's difficult to fully assess the quality of the recommended songs. Since the dataset only includes the top 3,000 worldwide hits, it's likely that any song suggested will already be a popular, high-quality track. Therefore, further analysis would be needed to judge whether the recommendations offer variety or true relevance beyond these popular songs.
 
 ### Results from Larger Dataset and Ingestion Tweaks:
+During the data ingestion process, lyrics were cleaned by removing common stop words, such as "the," "and," and similar terms, which are generally believed not to impact the overall meaning of the lyrics. The aim of this preprocessing step was to enhance the output quality by focusing on more meaningful content within the lyrics, potentially improving the relevance of track recommendations.
+
 The overall quality of the suggested titles decreased with the use of a larger dataset. Only 4 out of 10 suggestions were deemed acceptable or good for inclusion in the playlist. While the intention behind the recommendations remains identifiable, and the clustering of songs based on their lyrics still holds, the quality of recommendations has suffered. Notably, the genre range of the suggestions remains consistent.
 
 An interesting observation is the quality of recommendations varies significantly depending on the genre of the playlist. For instance, pop music recommendations are considerably worse compared to those for Hip-Hop or Electronic genres.
@@ -34,18 +38,18 @@ Sketch comming...
 
 
 ## Datasets
-[Small Dataset](https://raw.githubusercontent.com/kirbs-btw/shuffle.ai/refs/heads/main/song_data/old_data_preprocessing/song_data.csv) (3.5k):
+### Small Dataset ([3.5k tracks](https://raw.githubusercontent.com/kirbs-btw/shuffle.ai/refs/heads/main/song_data/old_data_preprocessing/song_data.csv))
 
-The startingpoint for the songs is a [dataset](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs) from kaggle. The set is cleaned for unnecessary columns and duplicates. With webscraping the data is extended by a lyrics column.
+The small dataset originates from a [Kaggle dataset](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs) and serves as the initial source of songs. It has undergone preprocessing to remove unnecessary columns and duplicates. Additionally, the dataset has been augmented by incorporating a lyrics column through web scraping.
 
-[Big Dataset](https://github.com/kirbs-btw/shuffle.ai/tree/main/song_data/big_data_scraping)(70k): 
-1. Combining datasets to in terms of track_name and track_artist.
-2. Adding a unique id to every song
-3. scraping the lyrics via the [genius API](https://genius.com/)
+### Large Dataset ([70k tracks](https://github.com/kirbs-btw/shuffle.ai/tree/main/song_data/big_data_scraping)):
+1. Multiple datasets were combined by matching songs on their track name and artist.
+2. Each song was assigned a unique identifier to facilitate tracking.
+3. Lyrics for each song were obtained via the [Genius API](https://genius.com/)
 
-Note: The big dataset is not inside the repo because the file is to big...
+Note: The large dataset is not stored in the repository due to file size limitations.
 
-base datasets:
+**Source Datasets:**
 - [Top 30k Spotify Songs](https://www.kaggle.com/datasets/joebeachcapital/30000-spotify-songs)
 - [Most Streamed Spotify Songs 2024](https://www.kaggle.com/datasets/nelgiriyewithana/most-streamed-spotify-songs-2024)
 - [Spotify Million Song Dataset](https://www.kaggle.com/datasets/notshrirang/spotify-million-song-dataset)
