@@ -11,9 +11,14 @@ The overall intention of the playlist generation is clear. For example, when cre
 
 However, it's difficult to fully assess the quality of the recommended songs. Since the dataset only includes the top 3,000 worldwide hits, it's likely that any song suggested will already be a popular, high-quality track. Therefore, further analysis would be needed to judge whether the recommendations offer variety or true relevance beyond these popular songs.
 
-### Big Dataset results + ingestion tweeks:
-... still testing
+### Results from Larger Dataset and Ingestion Tweaks:
+The overall quality of the suggested titles decreased with the use of a larger dataset. Only 4 out of 10 suggestions were deemed acceptable or good for inclusion in the playlist. While the intention behind the recommendations remains identifiable, and the clustering of songs based on their lyrics still holds, the quality of recommendations has suffered. Notably, the genre range of the suggestions remains consistent.
 
+An interesting observation is the quality of recommendations varies significantly depending on the genre of the playlist. For instance, pop music recommendations are considerably worse compared to those for Hip-Hop or Electronic genres.
+
+With the expansion of the dataset, which includes many lesser-known songs, there are more selections that align with the lyrical themes of the playlist, but the overall quality of these tracks does not match that of the hit songs in the playlist. However, when a song does fit well, it often aligns better than before, likely due to the finer distinctions made possible by the larger dataset.
+
+At this point, it is unclear how the ingestion changes have affected the output quality. Further research will be conducted to investigate this.
 
 ## Architecture
 The Architecture is base on Flask. There is one frontend that is connected with a milvus and a relational DB.

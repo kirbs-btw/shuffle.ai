@@ -73,18 +73,23 @@ def add_song_to_playlist():
 
 @main.post('/playerlist_suggestions')
 def get_songs_from_playlist():
+    print("here1")
     results = MILVUS_HANDLER.suggestion_songs_from_ids(playlist_ids)
-
+    
+    print("here2")
     response = []
     for hits in results:
        for hit in hits:
            response.append(hit.id)
 
+    print("here3")
     suggestionsDf = DB_HANDLER.getDataFromIdList(response)
 
+    print("here4")
     for id in playlist_ids:
         suggestionsDf = suggestionsDf[suggestionsDf['track_id'] != id]
 
+    print("here5")
 
     return {
         "data": [
