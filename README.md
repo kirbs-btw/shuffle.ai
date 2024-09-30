@@ -14,7 +14,7 @@ The overall intention of the playlist generation is clear. For example, when cre
 However, it's difficult to fully assess the quality of the recommended songs. Since the dataset only includes the top 3,000 worldwide hits, it's likely that any song suggested will already be a popular, high-quality track. Therefore, further analysis would be needed to judge whether the recommendations offer variety or true relevance beyond these popular songs.
 
 ### Results from Larger Dataset and Ingestion Tweaks:
-During the data ingestion process, lyrics were cleaned by removing common stop words, such as "the," "and," and similar terms, which are generally believed not to impact the overall meaning of the lyrics. The aim of this preprocessing step was to enhance the output quality by focusing on more meaningful content within the lyrics, potentially improving the relevance of track recommendations.
+During the data ingestion process, lyrics were cleaned by removing common stop words, such as "the" "and" and similar terms, which are generally believed not to impact the overall meaning of the lyrics. The aim of this preprocessing step was to enhance the output quality by focusing on more meaningful content within the lyrics, potentially improving the relevance of track recommendations.
 
 The overall quality of the suggested titles decreased with the use of a larger dataset. Only 4 out of 10 suggestions were deemed acceptable or good for inclusion in the playlist. While the intention behind the recommendations remains identifiable, and the clustering of songs based on their lyrics still holds, the quality of recommendations has suffered. Notably, the genre range of the suggestions remains consistent.
 
@@ -25,6 +25,13 @@ With the expansion of the dataset, which includes many lesser-known songs, there
 At this point, it is unclear how the ingestion changes have affected the output quality. Further research will be conducted to investigate this.
 
 ## Architecture
+Architecture parts:
+    Milvus API - Handling the VectorDB
+    Relationale DB
+    Orchestrator
+    Frontend for selecting and getting suggestions
+
+
 The Architecture is base on Flask. There is one frontend that is connected with a milvus and a relational DB.
 Sketch comming...
 
