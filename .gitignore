@@ -12,3 +12,4 @@ song_data/big_data_scraping/data_preprocessing/tmp
 app/__pycache__
 app/backend/__pycache__
 app/backend/db/song_data_70k.csv
+img/architecture.drawio

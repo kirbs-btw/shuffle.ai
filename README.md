@@ -25,15 +25,7 @@ With the expansion of the dataset, which includes many lesser-known songs, there
 At this point, it is unclear how the ingestion changes have affected the output quality. Further research will be conducted to investigate this.
 
 ## Architecture
-Architecture parts:
-    Milvus API - Handling the VectorDB
-    Relationale DB
-    Orchestrator
-    Frontend for selecting and getting suggestions
-
-
-The Architecture is base on Flask. There is one frontend that is connected with a milvus and a relational DB.
-Sketch comming...
+![architecture](img/architecture.png)
 
 ## Setup
 0. Install the [requirements.txt](https://github.com/kirbs-btw/shuffle.ai/blob/main/requirements.txt).
