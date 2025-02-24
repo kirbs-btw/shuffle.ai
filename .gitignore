@@ -13,3 +13,4 @@ app/__pycache__
 app/backend/__pycache__
 app/backend/db/song_data_70k.csv
 img/architecture.drawio
+*__pycache__
